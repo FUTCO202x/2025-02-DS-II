@@ -16,6 +16,9 @@ public class Book {
 
     }
 
+    public Book() {
+    }
+
     public String getBookId() {
         return bookId;
     }
@@ -55,4 +58,12 @@ public class Book {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "Book [bookId=" + bookId + ", isbn=" + isbn + ", name=" + name + ", available=" + available + ", amount="
+                + amount + "]";
+    }
+
+    
 }
