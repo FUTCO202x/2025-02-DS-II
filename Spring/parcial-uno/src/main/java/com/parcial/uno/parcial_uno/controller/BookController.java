@@ -62,6 +62,8 @@ public class BookController {
         }
     }
 
+    // 7. Buscar por ISBN y nombre (usando parámetros de consulta)
+
     @PostMapping("/params")
     public ResponseEntity<Object> getBookByParams(
             @RequestParam("isbn") String isbn,
