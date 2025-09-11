@@ -21,6 +21,16 @@ Actualizar libro enviando el Id y los datos a cambiar
 ### 5 Eliminar Libro
 Eliminar el libro enviando el Id
 
+### 6 Buscar por Parametros
+Buscar por parametros de isbn y name y traer el json de la siguiente forma:
+
+Endpoint: POST /api/books/params?isbn=xxx&name=yyy
+Response Body:
+  {
+  "name": "Johanny",
+  "amount": 5,
+  "available": true
+  }
 
 
 ### Información Adicional

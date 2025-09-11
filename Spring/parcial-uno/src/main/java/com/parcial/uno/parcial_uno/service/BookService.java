@@ -2,6 +2,8 @@ package com.parcial.uno.parcial_uno.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -24,8 +26,50 @@ public class BookService implements IBookService {
         books.add(new Book("51ed516f-a", "0375759778","Prague: A Novel", 2, true));
     }
 
+    private BookDTO convertToDTO(Book book) {
+        return new BookDTO(book.getBookId(), book.getIsbn(), book.getName(), book.getAmount(), book.getAvailable());
+    }
+
     @Override
-    public List<Book> getAll() {
-        return books;
+    public List<BookDTO> getAll() {
+        return books.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public BookDTO create(Book book) {
+        books.add(book);
+        return convertToDTO(book);
+    }
+
+    @Override
+    public BookDTO findById(String id) {
+        Optional<Book> found = books.stream().filter(b -> b.getBookId().equals(id)).findFirst();
+        return found.map(this::convertToDTO).orElse(null);
+    }
+
+    @Override
+    public BookDTO findByISBN(String isbn) {
+        Optional<Book> found = books.stream().filter(b -> b.getIsbn().equals(isbn)).findFirst();
+        return found.map(this::convertToDTO).orElse(null);
+    }
+
+    @Override
+    public BookDTO update(String id, BookDTO bookDTO) {
+        for (Book b : books) {
+            if (b.getBookId().equals(id)) {
+                b.setName(bookDTO.getName());
+                b.setIsbn(bookDTO.getIsbn());
+                b.setAmount(bookDTO.getAmount());
+                b.setAvailable(bookDTO.getAvailable());
+                return convertToDTO(b);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String delete(String id) {
+        boolean removed = books.removeIf(b -> b.getBookId().equals(id));
+        return removed ? "Libro eliminado" : "Libro no encontrado";
     }
 }
