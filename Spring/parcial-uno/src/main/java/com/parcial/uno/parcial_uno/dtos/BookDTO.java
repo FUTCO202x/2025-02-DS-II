@@ -1,61 +1,69 @@
-// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
 package com.parcial.uno.parcial_uno.dtos;
 
 public class BookDTO {
-   private String bookId;
-   private String isbn;
-   private String name;
-   private Boolean available;
-   private Integer amount;
+    private String bookId;
+    private String isbn;
+    private String name;
+    private Boolean available;
+    private Integer amount;
 
-   public BookDTO() {
-   }
+    public BookDTO(String bookId, String isbn, String name, Integer amount, Boolean available) {
+        this.bookId = bookId;
+        this.isbn = isbn;
+        this.name = name;
+        this.amount = amount;
+        this.available = available;
 
-   public BookDTO(String bookId, String isbn, String name, Integer amount, Boolean available) {
-      this.bookId = bookId;
-      this.isbn = isbn;
-      this.name = name;
-      this.amount = amount;
-      this.available = available;
-   }
+    }
 
-   public String getBookId() {
-      return this.bookId;
-   }
+    public BookDTO() {
+    }
 
-   public void setBookId(String bookId) {
-      this.bookId = bookId;
-   }
+    public String getBookId() {
+        return bookId;
+    }
 
-   public String getIsbn() {
-      return this.isbn;
-   }
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
 
-   public void setIsbn(String isbn) {
-      this.isbn = isbn;
-   }
+    public String getIsbn() {
+        return isbn;
+    }
 
-   public String getName() {
-      return this.name;
-   }
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
-   public void setName(String name) {
-      this.name = name;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public Boolean getAvailable() {
-      return this.available;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public void setAvailable(Boolean available) {
-      this.available = available;
-   }
+    public Boolean getAvailable() {
+        return available;
+    }
 
-   public Integer getAmount() {
-      return this.amount;
-   }
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
 
-   public void setAmount(Integer amount) {
-      this.amount = amount;
-   }
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "BookDTO [bookId=" + bookId + ", isbn=" + isbn + ", name=" + name + ", available=" + available
+                + ", amount=" + amount + "]";
+    }
+
+    
 }

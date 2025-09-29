@@ -1,79 +1,103 @@
-// Source code is decompiled from a .class file using FernFlower decompiler (from Intellij IDEA).
 package com.parcial.uno.parcial_uno.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.parcial.uno.parcial_uno.dtos.BookDTO;
 import com.parcial.uno.parcial_uno.model.Book;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import org.springframework.stereotype.Service;
+import com.parcial.uno.parcial_uno.repository.BookRepository;
 
 @Service
 public class BookService implements IBookService {
-   private final List<Book> books = new ArrayList();
+    @Autowired
+    private BookRepository bookRepository;
 
-   public BookService() {
-      this.books.add(new Book("6600ab76-3", "0002005018", "Clara Callan", 5, true));
-      this.books.add(new Book("297c17d8-4", "0195153448", "Classical Mythology", 3, true));
-      this.books.add(new Book("11b553eb-b", "0399135782", "The kitchen God's wife", 8, true));
-      this.books.add(new Book("3c24c2fa-3", "0440234743", "The testament", 4, true));
-      this.books.add(new Book("eb25c2d4-7", "0393045218", "The mummies of Urumchi", 5, true));
-      this.books.add(new Book("1940136a-2", "0060973129", "Decision in Normandy", 3, true));
-      this.books.add(new Book("12a13228-0", "0345402871", "Airframe", 1, true));
-      this.books.add(new Book("51ed516f-a", "0375759778", "Prague: A Novel", 2, true));
-   }
+    @Override
+    public List<Book> getAll() {
+        return bookRepository.findAll();
+    }
 
-   private BookDTO convertToDTO(Book book) {
-      return new BookDTO(book.getBookId(), book.getIsbn(), book.getName(), book.getAmount(), book.getAvailable());
-   }
+    @Override
+    public BookDTO create(Book book) {
+        try {
+            Book savedBook = bookRepository.save(book);
+            return toDTO(savedBook);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return new BookDTO();
+        }
+    }
 
-   public List<BookDTO> getAll() {
-      return (List)this.books.stream().map(this::convertToDTO).collect(Collectors.toList());
-   }
+    @Override
+    public BookDTO findById(String id) {
+        Optional<Book> book = bookRepository.findById(id);
+        return book.map(this::toDTO).orElse(new BookDTO());
+    }
 
-   public BookDTO create(Book book) {
-      this.books.add(book);
-      return this.convertToDTO(book);
-   }
+    @Override
+    public BookDTO findByISBN(String isbn) {
+        List<Book> books = bookRepository.findAll();
+        for (Book book : books) {
+            if (book.getIsbn().equals(isbn)) {
+                return toDTO(book);
+            }
+        }
+        return new BookDTO();
+    }
 
-   public BookDTO findById(String id) {
-      Optional<Book> found = this.books.stream().filter((b) -> {
-         return b.getBookId().equals(id);
-      }).findFirst();
-      return (BookDTO)found.map(this::convertToDTO).orElse((BookDTO)null);
-   }
+    @Override
+    public BookDTO update(String id, BookDTO bookDTO) {
+        try {
+            Optional<Book> optionalBook = bookRepository.findById(id);
+            if (optionalBook.isPresent()) {
+                Book libro = optionalBook.get();
+                libro.setIsbn(bookDTO.getIsbn());
+                libro.setName(bookDTO.getName());
+                libro.setAmount(bookDTO.getAmount());
+                libro.setAvailable(bookDTO.getAvailable());
+                Book updatedBook = bookRepository.save(libro);
+                return toDTO(updatedBook);
+            }
+            return new BookDTO();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return new BookDTO();
+        }
+    }
 
-   public BookDTO findByISBN(String isbn) {
-      Optional<Book> found = this.books.stream().filter((b) -> {
-         return b.getIsbn().equals(isbn);
-      }).findFirst();
-      return (BookDTO)found.map(this::convertToDTO).orElse((BookDTO)null);
-   }
+    @Override
+    public String delete(String id) {
+        try {
+            if (bookRepository.existsById(id)) {
+                bookRepository.deleteById(id);
+                return "El libro fue eliminado de forma correcta";
+            }
+            return "El libro no fue encontrado";
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
 
-   public BookDTO update(String id, BookDTO bookDTO) {
-      Iterator var4 = this.books.iterator();
+    private BookDTO toDTO(Book book) {
+        BookDTO newBook = new BookDTO();
+        newBook.setBookId(book.getBookId());
+        newBook.setIsbn(book.getIsbn());
+        newBook.setName(book.getName());
+        newBook.setAmount(book.getAmount());
+        newBook.setAvailable(book.getAvailable());
+        return newBook;
+    }
 
-      while(var4.hasNext()) {
-         Book b = (Book)var4.next();
-         if (b.getBookId().equals(id)) {
-            b.setName(bookDTO.getName());
-            b.setIsbn(bookDTO.getIsbn());
-            b.setAmount(bookDTO.getAmount());
-            b.setAvailable(bookDTO.getAvailable());
-            return this.convertToDTO(b);
-         }
-      }
-
-      return null;
-   }
-
-   public String delete(String id) {
-      boolean removed = this.books.removeIf((b) -> {
-         return b.getBookId().equals(id);
-      });
-      return removed ? "Libro eliminado" : "Libro no encontrado";
-   }
+    /*private Book fromDTO(BookDTO book) {
+        Book newBook = new Book();
+        newBook.setBookId(book.getBookId());
+        newBook.setIsbn(book.getIsbn());
+        newBook.setName(book.getName());
+        newBook.setAmount(book.getAmount());
+        newBook.setAvailable(book.getAvailable());
+        return newBook;
+    }*/
 }
-
