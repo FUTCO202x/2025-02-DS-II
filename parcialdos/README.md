@@ -1,6 +1,6 @@
 # Parcialdos - Gestión de Cuentas Bancarias
 
-Este proyecto es una API REST en Spring Boot para la gestión de cuentas bancarias usando JPA y MySQL. A continuación encontrarás la documentación del codebase, DTOs, endpoints, ejemplos JSON, scripts SQL y cómo ejecutar la aplicación.
+Este proyecto es una API REST en Spring Boot para la gestión de cuentas bancarias usando JPA y MySQL. A continuación encontrarás la documentación del Proyecto a crear, DTOs, endpoints, ejemplos JSON, scripts SQL con la siguiente estructura en la aplicación.
 
 ---
 
@@ -155,14 +155,4 @@ Para importarla en Postman:
 
 ---
 
-## Sugerencias y mejoras
 
-- Validaciones con `@Valid` y `javax.validation` en los DTOs para prevenir balances negativos y campos faltantes.
-- Manejo centralizado de errores con `@ControllerAdvice` y respuestas estándar.
-- Cambiar `schema.sql` a `CREATE TABLE IF NOT EXISTS` si no deseas perder datos al reiniciar.
-- Agregar documentación OpenAPI/Swagger.
-- Agregar endpoints para operaciones (depósito/retiro) con transacciones y reglas de negocio.
-
----
-
-Si quieres, actualizo el README con diagramas (ASCII o PNG), añado ejemplos de `curl` o Postman collection, o cambio el idioma/estilo del documento. ¿Qué más quieres que añada? 
