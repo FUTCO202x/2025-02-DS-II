@@ -11,7 +11,7 @@ public interface IAccountService {
     List<AccountResponseDTO> getAll();
     AccountResponseDTO getById(Long id);
     String update(Long id, AccountRequestDTO request);
-    void delete(Long id);
+    boolean delete(Long id);
 
     AccountOwnerBalanceDTO findByNumeroCuenta(String numeroCuenta);
 }
