@@ -108,7 +108,7 @@ Base: `/api/accounts`
 - `data.sql` (se ejecuta después de `schema.sql`):
   - Inserta 5 cuentas iniciales: `ACC1001` - `ACC1005`.
 
-Si prefieres no recrear la tabla en cada inicio, puedo cambiar `schema.sql` para usar `CREATE TABLE IF NOT EXISTS`.
+Si prefieres no recrear la tabla en cada inicio, pueden cambiar `schema.sql` para usar `CREATE TABLE IF NOT EXISTS`.
 
 ---
 
@@ -123,7 +123,7 @@ Asegúrate de tener:
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/bankdb?useSSL=false&serverTimezone=UTC
 spring.datasource.username=root
-spring.datasource.password=Pass_123
+spring.datasource.password=Pass_123 (Password que tengan en su MySQL)
 spring.jpa.hibernate.ddl-auto=none
 spring.sql.init.mode=always
 spring.sql.init.schema-locations=classpath:schema.sql
@@ -140,13 +140,9 @@ cd "c:\Users\Newmi\Documents\FUTCO\2025-02-DS-II\parcialdos"
 
 ---
 
-## Tests y desarrollo
-
-- El proyecto incluye dependencias de test en `build.gradle` (Spring Boot Test). Puedo agregar pruebas unitarias o de integración si deseas.
-
 ### Colección Postman
 
-He incluido una colección Postman con los endpoints básicos en `postman/Parcialdos.postman_collection.json`.
+Se ha incluido una colección Postman con los endpoints básicos en `postman/Parcialdos.postman_collection.json`.
 Para importarla en Postman:
 
 1. Abre Postman -> Import -> File -> selecciona `postman/Parcialdos.postman_collection.json`.
