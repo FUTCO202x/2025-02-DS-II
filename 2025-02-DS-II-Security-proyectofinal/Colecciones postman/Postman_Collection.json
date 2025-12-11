@@ -1,0 +1,151 @@
+{
+  "info": {
+    "name": "Plataforma Online API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Registrar usuario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Lucía Torres\",\n  \"correoElectronico\": \"lucia.torres@email.com\",\n  \"contrasena\": \"segura2025\",\n  \"direccion\": \"Calle 123 #45-67\",\n  \"metodoDePago\": \"Tarjeta de crédito\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9000/api/auth/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["api", "auth", "register"]
+        }
+      }
+    },
+    {
+      "name": "2. Iniciar sesión",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"correo\": \"juan.perez@email.com\",\n  \"contrasena\": \"Qwerty123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9000/api/auth/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "3. Ver productos",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:9000/api/products",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["api", "products"]
+        }
+      }
+    },
+    {
+      "name": "3.1. Ver productos con filtro de stock",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:9000/api/products?stockThreshold=15",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["api", "products"],
+          "query": [
+            {
+              "key": "stockThreshold",
+              "value": "15"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Ver comentarios",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:9000/api/comments?from=2025-05-01",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["api", "comments"],
+          "query": [
+            {
+              "key": "from",
+              "value": "2025-05-01"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Crear carrito de compras",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer <tu_token_jwt>"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productoIds\": [1, 2, 5]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:9000/api/cart/create",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["api", "cart", "create"]
+        }
+      }
+    },
+    {
+      "name": "6. Ver productos de tu carrito",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <tu_token_jwt>"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:9000/api/cart/1/products",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "9000",
+          "path": ["api", "cart", "1", "products"]
+        }
+      }
+    }
+  ]
+}
